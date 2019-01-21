@@ -55,11 +55,26 @@ func NumberToText(f float64) []string {
 }
 
 func main() {
-	valor := 1235.68
+	valor := 1237.59
 	inteiro, fracional := math.Modf(valor)
+	fracional = math.RoundToEven(fracional * 100)
+
+	fmt.Println(inteiro, fracional)
+
 	w := NumberToText(inteiro)
+	if inteiro == 1 {
+		w = append(w, "dollar")
+	} else {
+		w = append(w, "dollars")
+	}
 	if fracional > 0 {
-		w = append(w, NumberToText(fracional*100)...)
+		w = append(w, "and")
+		w = append(w, NumberToText(fracional)...)
+		if fracional == 1 {
+			w = append(w, "cent")
+		} else {
+			w = append(w, "cents")
+		}
 	}
 	fmt.Println(w)
 }
