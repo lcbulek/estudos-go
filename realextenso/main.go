@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"math"
 	"os"
@@ -19,12 +20,12 @@ const (
 
 var (
 	unidades = [20]string{"", "Um", "Dois", "Três", "Quatro", "Cinco", "Seis", "Sete", "Oito", "Nove",
-		"Dez", "Onze", "Doze", "Treze", "Quatorze", "Quinze", "Dezsesseis", "Dezessete", "Dezoito", "Dezenove"}
+		"Dez", "Onze", "Doze", "Treze", "Quatorze", "Quinze", "Dezesseis", "Dezessete", "Dezoito", "Dezenove"}
 
-	dezenas = [8]string{"Vinte", "Trinta", "Quarenta", "Cincoenta", "Sessenta", "Setenta", "Oitenta", "Noventa"}
+	dezenas = [8]string{"Vinte", "Trinta", "Quarenta", "Cinquenta", "Sessenta", "Setenta", "Oitenta", "Noventa"}
 
-	centenas = [10]string{"Cento", "Duzentos", "Trezentos", "Quatrocentos", "Quinhentos", "Seiscentos", "Setecentos",
-		"Oitocentos", "Novecentos", "Mil"}
+	centenas = [9]string{"Cento", "Duzentos", "Trezentos", "Quatrocentos", "Quinhentos", "Seiscentos", "Setecentos",
+		"Oitocentos", "Novecentos"}
 
 	cem = "Cem"
 
@@ -180,7 +181,12 @@ func limparAcasa(words []string) string {
 }
 
 func main() {
-	valor, _ := strconv.ParseFloat(os.Args[1], 64)
+	minusU := flag.Bool("u", false, "Uppercase")
+
+	flag.Parse()
+	flags := flag.Args()
+
+	valor, _ := strconv.ParseFloat(flags[0], 64)
 	inteiro, fracional := math.Modf(valor)
 	fracional = math.RoundToEven(fracional * 100)
 	words := []string{""}
@@ -211,5 +217,9 @@ func main() {
 		words = append(words, cuCentavo)
 	}
 
-	fmt.Println(limparAcasa(words))
+	if *minusU {
+		fmt.Println(strings.ToUpper(limparAcasa(words)))
+	} else {
+		fmt.Println(limparAcasa(words))
+	}
 }
