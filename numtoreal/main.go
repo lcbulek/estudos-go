@@ -173,8 +173,6 @@ func main() {
 		}
 	}
 
-	fmt.Println(w)
-
 	if *minusU {
 		fmt.Println(strings.ToUpper(limparAcasa(w)))
 	} else {
