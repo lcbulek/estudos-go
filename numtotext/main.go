@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"math"
+	"os"
+	"strconv"
 )
 
 var (
@@ -55,7 +57,7 @@ func NumberToText(f float64) []string {
 }
 
 func main() {
-	valor := 1237.59
+	valor, _ := strconv.ParseFloat(os.Args[1], 64)
 	inteiro, fracional := math.Modf(valor)
 	fracional = math.RoundToEven(fracional * 100)
 
