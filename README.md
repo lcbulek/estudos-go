@@ -1,5 +1,5 @@
 Repositório com estudos da linguagem GO
-
+=======================================
 
 realextenso:
 
